@@ -1,0 +1,197 @@
+- Phân tích:
+	- phần Dashboard sẽ ẩn khi trượt playlist lên ==> phần Dashboard và playlist tách biệt ==> sử dụng position fix cho Dashboard và margin-top cho play-list.
+	- các bước:
+		- render songs. --> ok
+		- Scroll top,	--> ok
+		- play/pause/seek,	
+
+
+- thực hiện: 
+	- render songs:
+		- render theo hàm start (){ this.render}; ==> tat ca code va list nam trong hàm app;
+	- scroll top:
+		- kéo xuống thu nhỏ ==> phải lister được sự kiện kéo.
+		- tạo hàm sử lý các sự kiện chung.
+		- scroll: 
+			- document.onscroll: sự kiện scroll toàn browser.
+				-	window.scrollY : giá trị scroll theo trục y toàn của số trình duyệt.
+				-	document.documentElement.scrollTop: giá trị scroll theo top
+				-	sử dụng cả 2 bằng toán tử or (||) vì 1 số trình duyệt không hổ trợ.
+			- lấy kích thước lấy kích thước của cd - scroll:
+				- lấy kích thước cd qua offsetwidth rồi trừ cho scroll.
+				- lấy style width của cd = giá trị offsetwidth - scroll;
+				- chú ý là có trường hợp cuộn nhanh quá no tạo ra giá trị offsetwidth - scroll âm ==> k ẩn đc cd:
+				- sử lý lỗi:
+					- dùng: nếu > ? nó + 'px' : 0;
+				- cho opacity nhỏ. khi cuộn 
+	- lấy ra bài hát:
+		- đầu tiên lấy ra bài hát đầu tiên:
+		- tạo currenIndex: 0 ==> bài hiện tại.
+		- có thể tạo hàm getra và gọi khi start nhưng có thể làm cách khác.
+		- ĐỊNH NGHĨA deffineProperty:
+			- gọi đến hàm this.definePropertys() trong start:
+			- tạo defineProperties() trong app và tạo Object.defineProperty trong hàm defineProperties:
+			- cứ mỗi Object.defineProperty là một phương thức mới được định dạng hoặc sửa lại.
+			- Object.defineProperty(đối tượng cần thây đổi tạo mới methods, đặt tên, {object-define})
+			- return bài hát hiện tại là bài đầu tiên.
+	- load bài hát hiện tại.
+		- start: gọi this.loadCurrentSong();
+		- tạo loadCurrentSong trong app:
+			- ở đây get ra các element cần xài,
+			- tạo các element : const .....${....};
+			- update content các thẻ: heading.textContent = this.currentSong.name;	// qua textContent
+				- cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`; // qua css nên dùng style;
+				- audio.src = this.currentSong.path;									// qua attribute của element nên dùng dấu . thôi;
+	- Play/pause/seek:
+		- Play: dùng audio.play();
+			- có css playing cùndg class player thì hiện icon playing.
+			- bắt đầu lắng nghe nút play:
+				playBtn.onclick = function....{	audio.play()}
+		- pause:
+			- đặt 1 property trong app mặc định là false ==> khi chạy là true.
+			- khi play: đặt lại là true
+			- chú ý k thể trỏ this vô function play vì nó nằm trong 1 function khác ==> dùng app hoặc _this = this
+				- logit:
+					onclick = () => if(app.isPlaying){ thì pause }else{ thì play};
+				==> code thê logit sẽ xấu và kỳ cụt.
+				- code:
+					- sử dụng even play||pause (onplay|| onpause) của audio:
+						- .omplay ==> add class và == true;
+		- thanh Time line:
+			- even timeupdate sự kiện thây đổi thời gian(.ontimeupdate)
+			- giá trị: currentTime ==> giá trị thời gian hiện tại.
+			- giá trị duration: thời lượng audio.
+			- nhớ check giá trị duration vì ban đầu nó k có giá trị.
+		- Seek:
+			- sử lý tua bài.
+			- dự vào : even onchange của  thanh Time line:
+			- onchange: sự kiện xảy ra khi value của phần tử thay đổi.
+			- lấy ra value ==> nó là % ==> đổi sang giây ((timeLine.value) * ((audio.duration)))/100
+			==> gắn cho biến seekTime 
+			==> gắn lại cho  audio.currentTime = seekTime
+            - ngoai ra dung: oninput đẻ k bị bug khi tua bị tua ngượvc về trị trí chưa tua.
+
+
+
+
+- thêm: 
+	- automition spin cd: 
+		https://codewebdao.com/tao-hieu-ung-animation-xoay-tron-trong-css.675.html
+	
+
+
+
+
+
+
+
+
+
+
+
+//code:
+
+const app = {
+
+    songs : [
+        {
+            name: 'Tình Đầu',
+            singer: 'Tăng Day Tân',
+            path: '../assets/mp3/1-TinhDau-TangDuyTan-6229607.mp3',
+            image: '../assets/img/playList/1.jpg',
+        },
+        {
+            name: 'Da Vu',
+            singer: 'Tăng Day Tân',
+            path: '../assets/mp3/2-DaVu-TangDuyTan.mp3',
+            image: '../assets/img/playList/2.jfif',
+        },
+        {
+            name: 'Da Vu',
+            singer: 'Tăng Day Tân',
+            path: '../assets/mp3/2-DaVu-TangDuyTan.mp3',
+            image: '../assets/img/playList/2.jfif',
+        },
+        {
+            name: 'Da Vu',
+            singer: 'Tăng Day Tân',
+            path: '../assets/mp3/2-DaVu-TangDuyTan.mp3',
+            image: '../assets/img/playList/2.jfif',
+        },
+        {
+            name: 'Da Vu',
+            singer: 'Tăng Day Tân',
+            path: '../assets/mp3/2-DaVu-TangDuyTan.mp3',
+            image: '../assets/img/playList/2.jfif',
+        },
+        {
+            name: 'Da Vu',
+            singer: 'Tăng Day Tân',
+            path: '../assets/mp3/2-DaVu-TangDuyTan.mp3',
+            image: '../assets/img/playList/2.jfif',
+        },
+        {
+            name: 'Tình Đầu',
+            singer: 'Tăng Day Tân',
+            path: '../assets/mp3/1-TinhDau-TangDuyTan-6229607.mp3',
+            image: '../assets/img/playList/1.jpg',
+        },
+        {
+            name: 'Da Vu',
+            singer: 'Tăng Day Tân',
+            path: '../assets/mp3/2-DaVu-TangDuyTan.mp3',
+            image: '../assets/img/playList/2.jfif',
+        },
+        {
+            name: 'Tình Đầu',
+            singer: 'Tăng Day Tân',
+            path: '../assets/mp3/1-TinhDau-TangDuyTan-6229607.mp3',
+            image: '../assets/img/playList/1.jpg',
+        },
+        {
+            name: 'Da Vu',
+            singer: 'Tăng Day Tân',
+            path: '../assets/mp3/2-DaVu-TangDuyTan.mp3',
+            image: '../assets/img/playList/2.jfif',
+        },
+    ],
+
+    render: function(){
+        const htmls = this.songs.map((song) =>{
+            return `
+            <div class="song">
+                <div class="thumb" style="background-image: url('${song.image}')">
+                </div>
+                <div class="body">
+                  <h3 class="title">${song.name}</h3>
+                  <p class="author">${song.singer}</p>
+                </div>
+                <div class="option">
+                  <i class="fas fa-ellipsis-h"></i>
+                </div>
+            </div>
+            `
+        });
+        playList.innerHTML = htmls.join('') 
+    },
+
+    
+    handlEvents: function() {
+        const cd = $('.cd');
+        const cdwidth = cd.offsetWidth;
+        document.onscroll = function(){
+            const scrollList = window.scrollY || document.documentElement.scrollTop;
+            const cdNewWidth = cdwidth - scrollList;
+            cd.style.width = cdNewWidth > 0 ? cdNewWidth + 'px': 0;
+            cd.style.opacity = cdNewWidth/cdwidth;
+        };
+    },
+
+    start: function(){
+        this.handlEvents()
+        this.render()
+    },
+}
+
+//render:
+app.start()
