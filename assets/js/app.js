@@ -9,6 +9,7 @@ const playBtn = $('.btn-toggle-play');
 const player = $('.player');
 const playing = $('.playing');
 const timeLine = $('#progress');
+const body = $('body')
 //list-song
 const app = {
     currentIndex: 0,
@@ -196,4 +197,7 @@ const app = {
     }
 };
 app.start()
-alert('Version for mobile')
+console.log([body])
+if(body.clientWidth>740){
+    alert('Version for mobile')
+}
