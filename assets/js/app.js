@@ -198,6 +198,7 @@ const app = {
 };
 app.start()
 console.log([body])
-if(body.clientWidth>740){
-    alert('Version for mobile')
+if(body.clientWidth>820){
+    alert(' WARNING: This is Version for mobile!!!')
+    confirm('Please access by phone!!')
 }
