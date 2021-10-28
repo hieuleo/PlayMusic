@@ -12,6 +12,9 @@ const timeLine = $('#progress');
 const body = $('body');
 const next = $('.btn-next');
 const prev = $('.btn-prev');
+const random = $('.btn-random');
+
+
 // Animations: 
 const cdThumbAnimation = cdThumb.animate([{transform: 'rotate(360deg)'}],
 {duration: 18000,            // spin 18s
@@ -165,6 +168,7 @@ const app = {
                 timeLine.value = ((audio.currentTime)) / ((audio.duration)) * 100;
             }
         }
+
             //seek song:
         timeLine.oninput = function(){
             const seekTime = ((timeLine.value) * ((audio.duration)))/100;
@@ -181,6 +185,20 @@ const app = {
         prev.onclick = function(){
             app.prevCurrantSong();
             audio.play()
+        }
+
+        //next end:
+        audio.onended = function (){
+            cdThumbAnimation.play();
+            player.classList.add('playing');
+            setTimeout(() => {
+                app.currentIndex++
+                if(app.currentIndex > app.songs.length -1){
+                    app.currentIndex = 0
+                }
+                app.loadCurrentSong()
+                audio.play()
+            }, 900);
         }
     },
 
@@ -238,8 +256,8 @@ const app = {
     }
 };
 app.start()
-if(body.clientWidth>720){
-    alert(' WARNING: This is Version for mobile!!!')
-    confirm('Please access by phone!!')
-}
+// if(body.clientWidth>720){
+//     alert(' WARNING: This is Version for mobile!!!')
+//     confirm('Please access by phone!!')
+// }
 

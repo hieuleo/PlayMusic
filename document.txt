@@ -5,7 +5,8 @@
 		- Scroll top,	--> ok
 		- play/pause/seek --> ok
         - Spin CD --> ok
-        - Next/ Prev -->
+        - Next/ Prev --> ok 
+        - random --> 
 
 
 - thực hiện: 
@@ -93,6 +94,10 @@
         - tạo hàm trong handleven khi sự kiện next diễn ra thì chạy hàm next.
         ---> bug: đang play mà next thì: mất sourt ==> gọi lại play trong sự kiện next
         - đối với prev thì khi số < 0 thì nó về vị trí cuối index = là lenght - 1;
+    - Random:
+        - 
+    - AutoNext:
+        - audio.onended: ==> event kết thúc thời lượng đang phát.
 - thêm: 
 	- automition spin cd: 
 		https://codewebdao.com/tao-hieu-ung-animation-xoay-tron-trong-css.675.html
