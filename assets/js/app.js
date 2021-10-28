@@ -13,6 +13,8 @@ const body = $('body');
 const next = $('.btn-next');
 const prev = $('.btn-prev');
 const random = $('.btn-random');
+const title = $('title');
+console.log(title)
 
 
 // Animations: 
@@ -146,16 +148,18 @@ const app = {
                 audio.play()
             }
         };
-
-            // listening even play/pause
+        
+        // listening even play/pause
         audio.onplay = function(){
             player.classList.add('playing')
             app.isPlaying = true;
             cdThumbAnimation.play()
-
+            title.textContent = `️PLAY 🎼️ : ${app.currentSong.name} 💝💝`;
+            
             // cdThumb.classList.add('spin')
         }
         audio.onpause = function(){
+            title.textContent = 'PAUSE ▶️ : Music mobile'
             player.classList.remove('playing')
             app.isPlaying = false;
             cdThumbAnimation.pause()
@@ -229,6 +233,7 @@ const app = {
         heading.textContent = this.currentSong.name;
         cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`;
         audio.src = this.currentSong.path;
+        // title.textContent = this.currentSong.name;
     },
 
     // Next/ Prev:
