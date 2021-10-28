@@ -96,6 +96,7 @@ header h2 {
   color: #666;
   padding: 18px;
   font-size: 18px;
+  cursor: pointer;
 }
 
 .control .btn.active {
@@ -124,6 +125,7 @@ header h2 {
   -webkit-transition: 0.2s;
   transition: all 0.2s;
   border: 1px solid #f3699c81;
+  cursor: pointer;
 }
 
 .progress::-webkit-slider-thumb {
@@ -151,6 +153,7 @@ header h2 {
   border-radius: 5px;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
   background: linear-gradient(to right, #fff 0%, #fcd3e1 100%);
+  cursor: pointer;
 }
 
 .song.active {

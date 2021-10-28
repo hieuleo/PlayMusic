@@ -3,7 +3,9 @@
 	- các bước:
 		- render songs. --> ok
 		- Scroll top,	--> ok
-		- play/pause/seek,	
+		- play/pause/seek --> ok
+        - Spin CD --> ok
+        - Next/ Prev -->
 
 
 - thực hiện: 
@@ -70,10 +72,27 @@
 			==> gắn cho biến seekTime 
 			==> gắn lại cho  audio.currentTime = seekTime
             - ngoai ra dung: oninput đẻ k bị bug khi tua bị tua ngượvc về trị trí chưa tua.
-
-
-
-
+    - Spin CD: 
+        - sử dụng Web Animations API(tạo).
+        - Logit:
+            - khi Play thì start Animations.
+        - viết ra function sử lý Spin.
+        - sử dụng animate(keyframes, options): keyframes == > cấu hình chuyển động; options ==> cách chuyển động;
+            - sử lý trong handlEvents:
+                cdThumb.animate([{transform: 'rotate(360deg)'}],{   
+                                                            duration: 10000,      // spin 10 second
+                                                            iterations: Infinity //loop vo hang})
+                - transform: rotate ===> là css để quay tròn ==> giá trị 360deg ==> độ;
+        khi function đó .pause()    ==> lúc đầu : không chạy
+        ==> lắng nghe sự kiện play ==> thì cdThumbAnimation.play() 
+        ==> lắng nghe sự kiện Pause ===> thì cdThumbAnimation.pause()
+    - Next/ Prev:
+        - ta có currenIndex là số hiện tại :
+            ==> next là currenIndex++  ==> nếu index > = songs.leght thì về lại k
+            ==> sau khi index tăng thì load currentSong tải bài mới.
+        - tạo hàm trong handleven khi sự kiện next diễn ra thì chạy hàm next.
+        ---> bug: đang play mà next thì: mất sourt ==> gọi lại play trong sự kiện next
+        - đối với prev thì khi số < 0 thì nó về vị trí cuối index = là lenght - 1;
 - thêm: 
 	- automition spin cd: 
 		https://codewebdao.com/tao-hieu-ung-animation-xoay-tron-trong-css.675.html

@@ -9,7 +9,14 @@ const playBtn = $('.btn-toggle-play');
 const player = $('.player');
 const playing = $('.playing');
 const timeLine = $('#progress');
-const body = $('body')
+const body = $('body');
+const next = $('.btn-next');
+const prev = $('.btn-prev');
+// Animations: 
+const cdThumbAnimation = cdThumb.animate([{transform: 'rotate(360deg)'}],
+{duration: 18000,            // spin 18s
+    iterations: Infinity,   // loop vo hang
+});
 //list-song
 const app = {
     currentIndex: 0,
@@ -42,7 +49,7 @@ const app = {
         {
             name: 'Lonely Together',
             singer: 'Avicii, Rita Ora, Alan Walker',
-            path: '../assets/mp3/2-DaVu-TangDuyTan.mp3',
+            path: 'https://nhacpro.me/stream/vm0v.mp3',
             image: './assets/img/playList/5.jpg',
         },
         {
@@ -55,7 +62,7 @@ const app = {
             name: 'Wake Me Up',
             singer: 'Avicii',
             path: 'https://nhacpro.me/stream/w95c.mp3',
-            image: './assets/img/playList/avicii2.jpg',
+            image: 'https://images.genius.com/1fc1d6e03dbd8dd0d5f5b8d9c3d96ebd.741x741x1.jpg',
         },
         {
             name: 'Paradise',
@@ -111,11 +118,14 @@ const app = {
         })
     },
 
+
+    
     //handleEvens 
     handleEvens: function(){
 
         // handle scroll.
         // const cd = $('.cd');
+        cdThumbAnimation.pause()
         const cdWidth = cd.offsetWidth;
         document.onscroll = function(){
             const scrollList = window.scrollY || document.documentElement.scrollTop;
@@ -138,11 +148,14 @@ const app = {
         audio.onplay = function(){
             player.classList.add('playing')
             app.isPlaying = true;
-            cdThumb.classList.add('spin')
+            cdThumbAnimation.play()
+
+            // cdThumb.classList.add('spin')
         }
         audio.onpause = function(){
             player.classList.remove('playing')
             app.isPlaying = false;
+            cdThumbAnimation.pause()
             // cdThumb.classList.remove('spin')
         }
 
@@ -156,6 +169,18 @@ const app = {
         timeLine.oninput = function(){
             const seekTime = ((timeLine.value) * ((audio.duration)))/100;
             audio.currentTime = seekTime;
+        }
+
+        //hand click next
+        next.onclick = function(){
+            app.nextCurrantSong();
+            audio.play()
+        }
+
+        // hand click prev
+        prev.onclick = function(){
+            app.prevCurrantSong();
+            audio.play()
         }
     },
 
@@ -188,6 +213,22 @@ const app = {
         audio.src = this.currentSong.path;
     },
 
+    // Next/ Prev:
+    nextCurrantSong: function (){
+        this.currentIndex++
+        if(this.currentIndex > this.songs.length -1){
+            this.currentIndex = 0
+        }   
+        this.loadCurrentSong()
+    },
+    prevCurrantSong: function (){
+        this.currentIndex--
+        if(this.currentIndex < 0){
+            this.currentIndex = this.songs.length - 1;
+        }   
+        this.loadCurrentSong()
+    },
+
     start: function(){
         // this.getCurrentSong()
         this.defineProperties();
@@ -197,7 +238,8 @@ const app = {
     }
 };
 app.start()
-if(body.clientWidth>720){
-    alert(' WARNING: This is Version for mobile!!!')
-    confirm('Please access by phone!!')
-}
+// if(body.clientWidth>720){
+//     alert(' WARNING: This is Version for mobile!!!')
+//     confirm('Please access by phone!!')
+// }
+
