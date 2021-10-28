@@ -238,8 +238,8 @@ const app = {
     }
 };
 app.start()
-// if(body.clientWidth>720){
-//     alert(' WARNING: This is Version for mobile!!!')
-//     confirm('Please access by phone!!')
-// }
+if(body.clientWidth>720){
+    alert(' WARNING: This is Version for mobile!!!')
+    confirm('Please access by phone!!')
+}
 
