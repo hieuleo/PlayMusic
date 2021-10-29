@@ -265,9 +265,9 @@ window.onload = function() {
     cdThumbAnimation.pause()
     setTimeout(() => {
         app.start()
-    }, 2500);
+    }, 1200);
 }
 if(body.clientWidth>720){
-    alert(' HIEULeo: NoTiFy⛔⛔ This is Version 1.8 for mobile!!!')
+    alert(' HIEULeo: NoTiFy⛔⛔ This is Version 2.1s for mobile!!!')
 }
 
