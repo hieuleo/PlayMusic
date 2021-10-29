@@ -79,10 +79,11 @@ header h2 {
   width: 100%;
   padding-top: 100%;
   border-radius: 50%;
-  background-color: #333;
+  background-color: #feeff4;
   background-size: cover;
   margin: auto;
   border: 2px solid #f3699b;
+  background-position: center;
 }
 
 /* CONTROL */
@@ -105,7 +106,7 @@ header h2 {
 
 }
 
-.control .btn:hover{
+.control .btn:active{
   background-color: #f3699cad;
   color: #fff;
 }
@@ -165,6 +166,8 @@ header h2 {
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
   background: linear-gradient(to right, #fff 0%, #fcd3e1 100%);
   cursor: pointer;
+  opacity: 1;
+  transition: all 0.05s linear;
 }
 
 .song.active {

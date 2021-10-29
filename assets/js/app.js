@@ -202,7 +202,7 @@ const app = {
                 }
                 app.loadCurrentSong()
                 audio.play()
-            }, 900);
+            }, 100);
         }
     },
 
@@ -260,9 +260,14 @@ const app = {
         this.loadCurrentSong();
     }
 };
-app.start()
-// if(body.clientWidth>720){
-//     alert(' WARNING: This is Version for mobile!!!')
-//     confirm('Please access by phone!!')
-// }
+
+window.onload = function() {
+    cdThumbAnimation.pause()
+    setTimeout(() => {
+        app.start()
+    }, 2500);
+}
+if(body.clientWidth>720){
+    alert(' HIEULeo: NoTiFy⛔⛔ This is Version for mobile!!!')
+}
 
