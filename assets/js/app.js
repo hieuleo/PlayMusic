@@ -15,6 +15,8 @@ const prev = $('.btn-prev');
 const random = $('.btn-random');
 const repeat = $('.btn-repeat');
 const title = $('title');
+const themeTogether = $('.theme-toggler')
+const toggler =  $('.toggler')
 
 // Animations: 
 const cdThumbAnimation = cdThumb.animate([{transform: 'rotate(360deg)'}],
@@ -27,6 +29,7 @@ const app = {
     isPlaying: false,
     isRandom: false,
     isRepeat: false,
+    isThemeTogether: true,
     songs : [
         {
             name: 'Tình Đầu',
@@ -126,6 +129,12 @@ const app = {
     
     //handleEvens 
     handleEvens: function(){
+        //theme-mode:
+        themeTogether.onclick = function(){
+            app.isThemeTogether = !app.isThemeTogether;
+            player.classList.toggle('dark', app.isThemeTogether)
+            body.classList.toggle('body-dack',app.isThemeTogether)
+        }
 
         // handle scroll.
         // const cd = $('.cd');
@@ -182,7 +191,7 @@ const app = {
         next.onclick = function(){
             if (app.isRandom){
                 app.randomSong();
-                audio.play();
+                app.isPlaying?audio.play():audio.pause()
             }else{
                 app.nextCurrantSong();
                 app.isPlaying?audio.play():audio.pause()
@@ -193,7 +202,7 @@ const app = {
         prev.onclick = function(){
             if (app.isRandom){
                 app.randomSong();
-                audio.play();
+                app.isPlaying?audio.play():audio.pause()
             }else{
                 app.prevCurrantSong();
                 app.isPlaying?audio.play():audio.pause()
@@ -312,5 +321,5 @@ window.onload = function() {
     cdThumbAnimation.pause()
     setTimeout(() => {
         app.start()
-    }, 1200);
+    }, 2000);
 }

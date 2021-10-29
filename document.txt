@@ -118,12 +118,24 @@
             - ==> khi click vào Next/ Prev và event onended của audio mà app.israndom = true thì chạy hàm random
             - LOGIT:
                 - khi onended(kết thúc bài) ==> isRepeat = true ? audio.play .
-    - ACtive song: (tự làm)
-        - tạo class: id-song-${index} khi render
-        - 
     - AutoNext:
         - audio.onended: ==> event kết thúc thời lượng đang phát.
-        - 
+    - ACTIVE SONG:
+		- Logit:
+			- add vào class: active khi render với đk index phần tử lập bằng currenIndex
+			- tạo hàm sử lý hàm này tạo biến chứa array các element song
+			- lập qua các element song xóa class active
+			- tạo biến lấy ra phần tử trong mảng các element với index mảng đó trùng với currenIndex
+			- từ biến đó gắn class : active cho element được lấy ra đó.
+		- ở Render: trong .map(...,index) ==> class="song $ index === app.currentIndex ? "active" : ""}"
+			==> index = index hiện tại gắn active k thì gắn class trống
+		- hàm activeSong:
+			- var loopSongs = $$('.song');
+			- for lập để xóa active trong các ptử của loopSongs
+			- const activeSong = loopSongs[this.currentIndex]
+			- add : active cho activeSong
+
+			
 
 
 
