@@ -304,9 +304,9 @@ const app = {
     },
 };
 
-// if(body.clientWidth>720){
-//     alert(' HIEULeo: NoTiFy⛔⛔ This is Version 2.1s for mobile!!!')
-// }
+if(body.clientWidth>720){
+    alert(' HIEULeo: NoTiFy⛔⛔ This is Version 2.1s for mobile!!!')
+}
 
 window.onload = function() {
     cdThumbAnimation.pause()
