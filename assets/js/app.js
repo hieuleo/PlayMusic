@@ -268,6 +268,6 @@ window.onload = function() {
     }, 2500);
 }
 if(body.clientWidth>720){
-    alert(' HIEULeo: NoTiFy⛔⛔ This is Version for mobile!!!')
+    alert(' HIEULeo: NoTiFy⛔⛔ This is Version 1.8 for mobile!!!')
 }
 
