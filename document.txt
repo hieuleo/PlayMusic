@@ -6,7 +6,9 @@
 		- play/pause/seek --> ok
         - Spin CD --> ok
         - Next/ Prev --> ok 
-        - random --> 
+        - random --> ok
+        - repeat --> ok
+        - active song --> 
 
 
 - thực hiện: 
@@ -94,128 +96,42 @@
         - tạo hàm trong handleven khi sự kiện next diễn ra thì chạy hàm next.
         ---> bug: đang play mà next thì: mất sourt ==> gọi lại play trong sự kiện next
         - đối với prev thì khi số < 0 thì nó về vị trí cuối index = là lenght - 1;
+    - UPDATE: Next/ Prev:
+        - pause() khi ở trạng thái pause
+        - play() khi ở trạng thái play
     - Random:
+        - gọi đến nut random.
+        - even click btn random.
+        - dùng toggle để add và remove classList active.
+        - tạo đối tượng israndom = false ==> khi click btn: app.isRandom = !app.isRandom tức là thây đổi trạng thái của isRandom khi bị click
+        - random.classList.toggle('active', app.isRandom) ==> được kích thoặc khi điều kiện là true.
+        - LOGIT:
+            - khi next/prev mà israndom = true thì random bài hát.
+            - dùng Do/While:
+                - do: random bài hát
+                - While: điều kiện dừng khi bài random không giống bài cũ.
+            - đặt biết lưu bài currentIndex hiện tại : currentIndexRandom
+            - currentIndexRandom = Math.floor(Math.random() * this.songs.length) // lấy số nguyên với random nhỏ hơn lenght
+            - while(currentIndexRandom == this.currenIndex) để điều kiện là nó random lại khi trúng bài vừa phát.
+            - loop xong thì gắn lại giá trị cho currenIndex
+            - load lại currentSong
+            - ==> khi click vào Next/ Prev và event onended của audio mà app.israndom = true thì chạy hàm random
+            - LOGIT:
+                - khi onended(kết thúc bài) ==> isRepeat = true ? audio.play .
+    - ACtive song: (tự làm)
+        - tạo class: id-song-${index} khi render
         - 
     - AutoNext:
         - audio.onended: ==> event kết thúc thời lượng đang phát.
+        - 
+
+
+
+
+
+
+
+
+
 - thêm: 
-	- automition spin cd: 
-		https://codewebdao.com/tao-hieu-ung-animation-xoay-tron-trong-css.675.html
 	
-
-
-
-
-
-
-
-
-
-
-
-//code:
-
-const app = {
-
-    songs : [
-        {
-            name: 'Tình Đầu',
-            singer: 'Tăng Day Tân',
-            path: '../assets/mp3/1-TinhDau-TangDuyTan-6229607.mp3',
-            image: '../assets/img/playList/1.jpg',
-        },
-        {
-            name: 'Da Vu',
-            singer: 'Tăng Day Tân',
-            path: '../assets/mp3/2-DaVu-TangDuyTan.mp3',
-            image: '../assets/img/playList/2.jfif',
-        },
-        {
-            name: 'Da Vu',
-            singer: 'Tăng Day Tân',
-            path: '../assets/mp3/2-DaVu-TangDuyTan.mp3',
-            image: '../assets/img/playList/2.jfif',
-        },
-        {
-            name: 'Da Vu',
-            singer: 'Tăng Day Tân',
-            path: '../assets/mp3/2-DaVu-TangDuyTan.mp3',
-            image: '../assets/img/playList/2.jfif',
-        },
-        {
-            name: 'Da Vu',
-            singer: 'Tăng Day Tân',
-            path: '../assets/mp3/2-DaVu-TangDuyTan.mp3',
-            image: '../assets/img/playList/2.jfif',
-        },
-        {
-            name: 'Da Vu',
-            singer: 'Tăng Day Tân',
-            path: '../assets/mp3/2-DaVu-TangDuyTan.mp3',
-            image: '../assets/img/playList/2.jfif',
-        },
-        {
-            name: 'Tình Đầu',
-            singer: 'Tăng Day Tân',
-            path: '../assets/mp3/1-TinhDau-TangDuyTan-6229607.mp3',
-            image: '../assets/img/playList/1.jpg',
-        },
-        {
-            name: 'Da Vu',
-            singer: 'Tăng Day Tân',
-            path: '../assets/mp3/2-DaVu-TangDuyTan.mp3',
-            image: '../assets/img/playList/2.jfif',
-        },
-        {
-            name: 'Tình Đầu',
-            singer: 'Tăng Day Tân',
-            path: '../assets/mp3/1-TinhDau-TangDuyTan-6229607.mp3',
-            image: '../assets/img/playList/1.jpg',
-        },
-        {
-            name: 'Da Vu',
-            singer: 'Tăng Day Tân',
-            path: '../assets/mp3/2-DaVu-TangDuyTan.mp3',
-            image: '../assets/img/playList/2.jfif',
-        },
-    ],
-
-    render: function(){
-        const htmls = this.songs.map((song) =>{
-            return `
-            <div class="song">
-                <div class="thumb" style="background-image: url('${song.image}')">
-                </div>
-                <div class="body">
-                  <h3 class="title">${song.name}</h3>
-                  <p class="author">${song.singer}</p>
-                </div>
-                <div class="option">
-                  <i class="fas fa-ellipsis-h"></i>
-                </div>
-            </div>
-            `
-        });
-        playList.innerHTML = htmls.join('') 
-    },
-
-    
-    handlEvents: function() {
-        const cd = $('.cd');
-        const cdwidth = cd.offsetWidth;
-        document.onscroll = function(){
-            const scrollList = window.scrollY || document.documentElement.scrollTop;
-            const cdNewWidth = cdwidth - scrollList;
-            cd.style.width = cdNewWidth > 0 ? cdNewWidth + 'px': 0;
-            cd.style.opacity = cdNewWidth/cdwidth;
-        };
-    },
-
-    start: function(){
-        this.handlEvents()
-        this.render()
-    },
-}
-
-//render:
-app.start()

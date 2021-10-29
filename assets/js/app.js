@@ -13,9 +13,8 @@ const body = $('body');
 const next = $('.btn-next');
 const prev = $('.btn-prev');
 const random = $('.btn-random');
+const repeat = $('.btn-repeat');
 const title = $('title');
-console.log(title)
-
 
 // Animations: 
 const cdThumbAnimation = cdThumb.animate([{transform: 'rotate(360deg)'}],
@@ -26,6 +25,8 @@ const cdThumbAnimation = cdThumb.animate([{transform: 'rotate(360deg)'}],
 const app = {
     currentIndex: 0,
     isPlaying: false,
+    isRandom: false,
+    isRepeat: false,
     songs : [
         {
             name: 'Tình Đầu',
@@ -122,8 +123,6 @@ const app = {
             }
         })
     },
-
-
     
     //handleEvens 
     handleEvens: function(){
@@ -172,45 +171,70 @@ const app = {
                 timeLine.value = ((audio.currentTime)) / ((audio.duration)) * 100;
             }
         }
-
-            //seek song:
+        
+        //seek song:
         timeLine.oninput = function(){
             const seekTime = ((timeLine.value) * ((audio.duration)))/100;
             audio.currentTime = seekTime;
         }
-
+        
         //hand click next
         next.onclick = function(){
-            app.nextCurrantSong();
-            audio.play()
+            if (app.isRandom){
+                app.randomSong();
+                audio.play();
+            }else{
+                app.nextCurrantSong();
+                app.isPlaying?audio.play():audio.pause()
+            }
         }
 
         // hand click prev
         prev.onclick = function(){
-            app.prevCurrantSong();
-            audio.play()
+            if (app.isRandom){
+                app.randomSong();
+                audio.play();
+            }else{
+                app.prevCurrantSong();
+                app.isPlaying?audio.play():audio.pause()
+            }
         }
 
         //next end:
         audio.onended = function (){
-            cdThumbAnimation.play();
-            player.classList.add('playing');
-            setTimeout(() => {
-                app.currentIndex++
-                if(app.currentIndex > app.songs.length -1){
-                    app.currentIndex = 0
-                }
-                app.loadCurrentSong()
-                audio.play()
-            }, 100);
+            if (app.isRandom){
+                app.randomSong();
+                audio.play();
+            }else if (app.isRepeat){
+                audio.play();
+            }else{
+                cdThumbAnimation.play();
+                player.classList.add('playing');
+                setTimeout(() => {
+                    app.nextCurrantSong();
+                    audio.play();
+                }, 500);
+            }
+        }
+
+        //ramdom:
+        random.onclick = function(){
+            app.isRandom = !app.isRandom   // when click chage boolean-value;
+            random.classList.toggle('active', app.isRandom);
+        };
+
+        //repeat:
+        repeat.onclick = function(){
+            app.isRepeat = !app.isRepeat   // when click chage boolean-value;
+            repeat.classList.toggle('active', app.isRepeat);
         }
     },
 
     //render list song
     render: function(){
-        const htmls = this.songs.map((song) =>{
+        const htmls = this.songs.map((song, index) =>{
             return `
-            <div class="song">
+            <div class="song ${index === app.currentIndex ? "active" : ""}">
                 <div class="thumb" style="background-image: url('${song.image}')"></div>
                 <div class="body">
                   <h3 class="title">${song.name}</h3>
@@ -226,10 +250,6 @@ const app = {
 
     // load current song
     loadCurrentSong:function(){
-        // const heading = $('header h2');
-        // const cdThumb = $('.cd-thumb');
-        // const audio = $('#audio');
-
         heading.textContent = this.currentSong.name;
         cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`;
         audio.src = this.currentSong.path;
@@ -243,6 +263,7 @@ const app = {
             this.currentIndex = 0
         }   
         this.loadCurrentSong()
+        this.activeSong()
     },
     prevCurrantSong: function (){
         this.currentIndex--
@@ -250,6 +271,28 @@ const app = {
             this.currentIndex = this.songs.length - 1;
         }   
         this.loadCurrentSong()
+        this.activeSong()
+    },
+
+    //random song:
+    randomSong: function(){
+        let currentIndexRandom;
+        do {
+            currentIndexRandom = Math.floor(Math.random() * this.songs.length)
+        } while (currentIndexRandom == this.currentIndex)
+        this.currentIndex = currentIndexRandom;
+        this.loadCurrentSong()
+        this.activeSong()
+    },
+
+    // active song:
+    activeSong: function(){
+        var loopSongs = $$('.song');
+        for (song of loopSongs){
+                song.classList.remove('active')
+        }
+        const activeSong = loopSongs[this.currentIndex]
+        activeSong.classList.add('active')
     },
 
     start: function(){
@@ -258,8 +301,12 @@ const app = {
         this.render();
         this.handleEvens();
         this.loadCurrentSong();
-    }
+    },
 };
+
+// if(body.clientWidth>720){
+//     alert(' HIEULeo: NoTiFy⛔⛔ This is Version 2.1s for mobile!!!')
+// }
 
 window.onload = function() {
     cdThumbAnimation.pause()
@@ -267,7 +314,3 @@ window.onload = function() {
         app.start()
     }, 1200);
 }
-if(body.clientWidth>720){
-    alert(' HIEULeo: NoTiFy⛔⛔ This is Version 2.1s for mobile!!!')
-}
-
