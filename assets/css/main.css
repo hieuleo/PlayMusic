@@ -57,13 +57,14 @@ html {
   user-select: none;
   background-image: url('../img/light-mode.jpg');
   background-size: cover;
-  transition: all 0.2 linear;
+  transition: all 0.2s linear;
 }
 
 /* HEADER */
 header {
   text-align: center;
   margin-bottom: 10px;
+  transition: all 0.1s linear;
 }
 
 header h4 {
