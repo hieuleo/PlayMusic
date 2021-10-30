@@ -330,6 +330,11 @@ const app = {
         //volume sounds:
         volumeBtn.onclick = function(){
             app.isVolumeInput = !app.isVolumeInput;
+            if(app.isVolumeInput){
+                disableScrolling()
+            }else{
+                enableScrolling()
+            }
             volumeInput.classList.toggle('active', app.isVolumeInput)
         }
             // close when click document
@@ -347,6 +352,7 @@ const app = {
 
             // link value vs volume:
         volumeInputID.oninput = function(){
+            disableScrolling()
             const changeValume = volumeInputID.value/100;
             audio.volume = changeValume;
             currentVolume.textContent = `${volumeInputID.value}/100`;
@@ -500,4 +506,14 @@ window.onload = function() {
 
 document.onkeyup = function(e){
         console.log([e])
+}
+
+function disableScrolling(){
+    var x=window.scrollX;
+    var y=window.scrollY;
+    window.onscroll=function(){window.scrollTo(x, y);};
+}
+
+function enableScrolling(){
+    window.onscroll=function(){};
 }
