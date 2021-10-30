@@ -105,14 +105,14 @@ header h2 {
 
 .control .btn {
   color: #666;
-  padding: 18px;
-  font-size: 18px;
+  padding: 20px;
+  font-size: 30px;
   cursor: pointer;
-  width: 54px;
-  height: 54px;
+  width: 68px;
+  height: 68px;
   text-align: center;
   border-radius: 50%;
-
+  list-style: 68px;
 }
 
 .control .btn:active{
@@ -125,21 +125,23 @@ header h2 {
 }
 
 .control .btn-toggle-play {
-  width: 60px;
-  height: 60px;
+  width: 75px;
+  height: 75px;
   border-radius: 50%;
-  font-size: 24px;
+  font-size: 30px;
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: var(--primary-color);
+  text-align: center;
+  line-height: 75px;
 }
 
 .progress {
   width: 100%;
   -webkit-appearance: none;
-  height: 6px;
+  height: 8px;
   background: #fff;
   outline: none;
   opacity: 0.7;
@@ -160,8 +162,8 @@ header h2 {
 
 /* PLAYLIST */
 .playlist {
-  margin-top: 390px;
-  padding: 12px;
+  margin-top: 404px;
+  padding: 24px 12px;
   user-select: none;
   /* background-color: #f2ddd8; */
 }
@@ -171,8 +173,8 @@ header h2 {
   align-items: center;
   margin-bottom: 12px;
   background-color: #fff;
-  padding: 8px 16px;
-  border-radius: 5px;
+  margin-bottom: 16px;
+  padding: 18px 18px;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
   background: #f2ddd8;
   cursor: pointer;
@@ -197,8 +199,8 @@ header h2 {
 }
 
 .song .thumb {
-  width: 44px;
-  height: 44px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   background-size: cover;
   margin: 0 8px;
@@ -210,12 +212,13 @@ header h2 {
 }
 
 .song .title {
-  font-size: 18px;
+  font-size: 26px;
   color: var(--text-color);
 }
 
 .song .author {
-  font-size: 12px;
+  margin-top: 3px;
+  font-size: 15px;
   color: #999;
 }
 
@@ -223,6 +226,10 @@ header h2 {
   padding: 16px 8px;
   color: #999;
   font-size: 18px;
+}
+
+.option > i{
+  font-size: 25px;
 }
 
 /* hiệu ứng chà đỉa */
@@ -279,31 +286,47 @@ header h2 {
 }
 
 .toggler{
-  height: 28px;
-  width: 68px;
+  height: 32px;
+  width: 74px;
   border-radius: 50px;
-  background:var(--light-bg);
+  background: rgba(235, 216, 216, 0.541);
   position: relative;
   cursor: pointer;
   border:var(--border);
   margin:0 2px;
   transition: all 0.2s linear;
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+}
+
+.toggler > i{
+  font-size: 20px;
+  margin: 0 8px;
+}
+
+.moon-color{
+  color: #f1c40f;
+}
+
+.sum-color{
+  color: #f39d12bb;
 }
 
 .toggler::before {
   content: '';
   position: absolute;
   top: 1px;
-  left: 2px;
-  height: 23px;
-  width: 24px;
+  left: 4px;
+  height: 27px;
+  width: 27px;
   border-radius: 50%;
   background: #f2bcbc;
   transition: all 0.2s linear;
 }
 
 .player.dark .theme-toggler .toggler::before{
-  left: 41px;
+  left: 42px;
   background: #e2a5fb;
   transition: all 0.2s linear;
 }
@@ -315,7 +338,7 @@ header h2 {
 }
 
 .player.dark .toggler{
-  background-color: var(--light-color);
+  background-color: rgba(17, 17, 17, 0.7);
   transition: all 0.2s linear;
 }
 

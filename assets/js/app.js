@@ -18,6 +18,11 @@ const title = $('title');
 const themeTogether = $('.theme-toggler')
 const toggler =  $('.toggler')
 
+// warning   
+if(body.clientWidth>720){
+    alert(' HIEULeo: NoTiFy⛔⛔ This is Version 2.1s for mobile!!!')
+}
+
 // Animations: 
 const cdThumbAnimation = cdThumb.animate([{transform: 'rotate(360deg)'}],
 {duration: 18000,            // spin 18s
@@ -313,13 +318,9 @@ const app = {
     },
 };
 
-if(body.clientWidth>720){
-    alert(' HIEULeo: NoTiFy⛔⛔ This is Version 2.1s for mobile!!!')
-}
-
 window.onload = function() {
     cdThumbAnimation.pause()
     setTimeout(() => {
         app.start()
-    }, 2000);
+    }, 1500);
 }
