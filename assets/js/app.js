@@ -20,10 +20,17 @@ const toggler =  $('.toggler');
 const iconTitle = $('.icon-title');
 const natification = $('.natification');
 const menu = $('.menu');
-
+const volumeBtn = $('.volume');
+const volumeInput = $('.volume-input');
+const volumeInputID = $('#volume-input');
+const iconVolume = $$('.icon-volume');
+const volumeMute = $('.volume-mute');
+const volumeOff = $('.volume-off');
+const volumeDown = $('.volume-down');
+const volumeUp = $('.volume-up');
 // warning   
 if(body.clientWidth>720){
-    alert(' HIEULeo: NoTiFy⛔⛔ This is Version 2.1s for mobile!!!')
+    alert(' HIEULeo: NoTiFy⛔⛔ This is Version 2.0 for mobile!!!')
 }
 
 // Animations: 
@@ -39,6 +46,7 @@ const app = {
     isRandom: false,
     isRepeat: false,
     isThemeTogether: true,
+    isVolumeInput: false,
     songs : [
         {
             name: 'You Be Love',
@@ -310,6 +318,54 @@ const app = {
                     natification.style.opacity = '0';
                     natification.style.top = '-25px';
                 }, 3000);
+            }
+        }
+
+
+
+        //volume sounds:
+        volumeBtn.onclick = function(){
+            app.isVolumeInput = !app.isVolumeInput;
+            volumeInput.classList.toggle('active', app.isVolumeInput)
+        }
+            // close when click document
+        player.onclick =function(e){
+            // const songSeleter = e.target.closest('.song:not(.active)');
+            const clickDocumentVolumentplayer = e.target.closest('.player');
+            const clickDocumentVolumentInpur = e.target.closest('.volume-input');
+            const clickDocumentVolument = e.target.closest('.volume');
+            console.log(e)
+            if (clickDocumentVolumentplayer && !clickDocumentVolumentInpur && !clickDocumentVolument){
+                app.isVolumeInput = !app.isVolumeInput;
+                volumeInput.classList.remove('active', app.isVolumeInput)
+            }
+        }
+
+            // link value vs volume:
+        volumeInputID.oninput = function(){
+            const changeValume = volumeInputID.value/100;
+            audio.volume = changeValume;
+        }
+        
+        volumeInputID.oninput = function(){
+            if (volumeInputID.value == 0){
+                for(i of iconVolume){
+                    i.classList.remove('active');
+                    volumeMute.classList.add('active')
+                }
+            }else if (volumeInputID.value < 20 && volumeInputID.value > 0){
+                for(i of iconVolume){
+                    i.classList.remove('active');
+                    volumeOff.classList.add('active')
+                }
+            }else if (volumeInputID.value >= 20 && volumeInputID.value < 75){
+                for(i of iconVolume){
+                    i.classList.remove('active');
+                    volumeDown.classList.add('active')
+                }
+            }else{
+                i.classList.remove('active');
+                volumeUp.classList.add('active')
             }
         }
 

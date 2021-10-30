@@ -168,7 +168,7 @@ header h2 {
   margin-top: 404px;
   padding: 24px 12px;
   user-select: none;
-  margin-bottom: 70px;
+  /* margin-bottom: 70px; */
   /* overflow-y: auto; */
   /* background-color: #f2ddd8; */
 }
@@ -191,7 +191,6 @@ header h2 {
 .song.active {
   background: #f9c6c5;
   transition: all 0.2s linear;
-
 }
 
 .song:active {
@@ -283,6 +282,100 @@ header h2 {
 .menu > i {
   font-size: 32px;
   color: #555;
+}
+
+/* volume */
+.volume{
+  position: fixed;
+  bottom: 0;
+  margin-left: 3px;
+  bottom: 20vh;
+  cursor: pointer;
+  user-select: none;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 50%;
+  transition: all 0.1s linear;
+}
+
+.volume:active{
+  background-color: #f2bcbcb2;
+  transition: all 0.1s linear;
+}
+
+.valume-icon{
+  padding: 6px;
+  height: 68px;
+  width: 68px;
+}
+
+.valume-icon > i{
+  color: #fff;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 28px;
+  opacity: 0;
+  transition: all 0.1s linear;
+}
+
+.valume-icon > .icon-volume.active{
+  opacity: 1;
+  transition: all 0.1s linear;
+}
+
+/* volume-input */
+.volume-input{
+  position: fixed;
+  bottom: 45vh;
+  margin-left: -104px;
+  transform: rotate(-90deg);
+  background-color: rgba(0, 0, 0, 0.3);
+  height: 62px;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 25px;
+  border-radius: 10px;
+  user-select: none;
+  display: none;
+  animation: volumeAnimation linear 0.5s;
+}
+
+@keyframes volumeAnimation {
+  from {
+      opacity: 0;
+      transform: scale(0.5);
+      transform: rotate(-90deg);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+    transform: rotate(-90deg);
+  }
+}
+
+.volume-input.active{
+  display: flex;
+}
+
+#volume-input{
+  width: 32vh;
+  height: 13px;
+  -webkit-appearance: none;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 1);
+  user-select: none;
+}
+
+#volume-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  border-radius: 50%;
+  height: 22px;
+  background-color: #f2bcbcc9;
+  cursor: pointer;
+  user-select: none;
 }
 
 /* hiệu ứng chà đỉa */
@@ -481,9 +574,6 @@ header h2 {
 
 
 /* menu */
-.player.dark .menu{
-
-}
 
 .player.dark .menu:active{
   background: #7200a1;
@@ -491,12 +581,17 @@ header h2 {
   /* opacity: 0.5; */
 }
 
-.player.dark .menu:active i{
-
-}
-
 .player.dark .menu > i{
   transition: all 0.2s linear;
   color: white;
+}
+
+.player.dark #volume-input::-webkit-slider-thumb {
+  background-color: #7100a1a6;
+}
+
+.player.dark .volume:active{
+  background: #7100a1a6;
+  transition: all 0.1s linear;
 }
 

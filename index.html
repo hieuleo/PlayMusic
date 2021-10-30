@@ -17,13 +17,16 @@
 <body class="body-dack">
     <div class="player dark">
         <div class="dashboard">
+            <!-- menu -->
             <div class="menu">
                 <i class="fas fa-stream"></i>
             </div>
+
             <!-- natification -->
             <div class="natification">
                 Error: Unfinished features ❕❕❕
             </div>
+
             <!-- Header -->
             <header>
                 <h4>Now playing:</h4>
@@ -71,17 +74,33 @@
 
         <!-- play-list -->
         <div class="playlist">
-        <!--<div class="song">
+            
+            <!--<div class="song">
                 <div class="thumb" style="background-image: url('${song.image}')">
                 </div>
                 <div class="body">
-                  <h3 class="title">${song.name}</h3>
-                  <p class="author">${song.singer}</p>
+                    <h3 class="title">${song.name}</h3>
+                    <p class="author">${song.singer}</p>
                 </div>
                 <div class="option">
-                  <i class="fas fa-ellipsis-h"></i>
+                    <i class="fas fa-ellipsis-h"></i>
                 </div>
             </div> -->
+        </div>
+
+        <!-- volume-input -->
+        <div class="volume-input">
+            <input id="volume-input"type="range" value="10" step="2" min="0" max="100">
+        </div>
+
+        <!-- volume -->
+        <div class="volume">
+            <div class="valume-icon">
+                <i class="fas fa-volume-up volume-up icon-volume"></i>
+                <i class="fas fa-volume-down volume-down active icon-volume"></i>
+                <i class="fas fa-volume-off volume-off icon-volume"></i>
+                <i class="fas fa-volume-mute volume-mute icon-volume"></i>
+            </div>
         </div>
     </div>
 
