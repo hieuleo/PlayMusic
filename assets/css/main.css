@@ -378,6 +378,18 @@ header h2 {
   user-select: none;
 }
 
+.currentvolume{
+  font-size: 12px;
+  transform: rotate(90deg);
+  position: fixed;  
+  right: -9px;
+  top: 24px;
+  font-weight: 600;
+  color: #fff;
+  width: 46px;
+  text-align: right;
+}
+
 /* hiệu ứng chà đỉa */
 @-webkit-keyframes xoayvong{
   from{

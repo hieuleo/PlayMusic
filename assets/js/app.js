@@ -28,6 +28,10 @@ const volumeMute = $('.volume-mute');
 const volumeOff = $('.volume-off');
 const volumeDown = $('.volume-down');
 const volumeUp = $('.volume-up');
+const currentVolume = $('.currentvolume')
+
+//const audio valume 
+audio.volume = 0.05;
 // warning   
 if(body.clientWidth>720){
     alert(' HIEULeo: NoTiFy⛔⛔ This is Version 2.0 for mobile!!!')
@@ -345,9 +349,7 @@ const app = {
         volumeInputID.oninput = function(){
             const changeValume = volumeInputID.value/100;
             audio.volume = changeValume;
-        }
-        
-        volumeInputID.oninput = function(){
+            currentVolume.textContent = `${volumeInputID.value}/100`;
             if (volumeInputID.value == 0){
                 for(i of iconVolume){
                     i.classList.remove('active');
