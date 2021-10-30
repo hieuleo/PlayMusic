@@ -37,6 +37,18 @@ const app = {
     isThemeTogether: true,
     songs : [
         {
+            name: 'You Be Love',
+            singer: 'Avicii, Billy Raffoul',
+            path: 'https://nhacpro.me/stream/vsrn.mp3',
+            image: './assets/img/playList/avicii.jpg',
+        },
+        {
+            name: 'The Feels',
+            singer: 'TWICE',
+            path: 'https://nhacpro.me/stream/wk7c.mp3',
+            image: './assets/img/playList/TheFeels-TWICE.jpg',
+        },
+        {
             name: 'Tình Đầu',
             singer: 'Tăng Day Tân',
             path: 'https://nhacpro.me/stream/wix9.mp3',
@@ -103,12 +115,6 @@ const app = {
             image: './assets/img/playList/amee.jpg',
         },
         {
-            name: 'The Feels',
-            singer: 'TWICE',
-            path: 'https://nhacpro.me/stream/wk7c.mp3',
-            image: './assets/img/playList/TheFeels-TWICE.jpg',
-        },
-        {
             name: 'My Universe',
             singer: 'Coldplay, BTS',
             path: 'https://nhacpro.me/stream/wk5t.mp3',
@@ -148,9 +154,15 @@ const app = {
         document.onscroll = function(){
             const scrollList = window.scrollY || document.documentElement.scrollTop;
             const cdNewWidth = cdWidth - scrollList;
-            cd.style.width =cdNewWidth > 0 ? cdNewWidth +'px': 0;
+            if (cdNewWidth < 48){
+                cdThumb.style.border= '0.8px solid #ea7aa0';
+            }
+            if (cdNewWidth > 50){
+                cdThumb.style.border= '2px solid #ea7aa0';
+            }
+            cd.style.width = cdNewWidth > 0 ? cdNewWidth +'px': 0;
             cd.style.opacity = cdNewWidth/cdWidth;
-
+            // console.log([cd.style])
         };
 
         // handle click play
@@ -242,6 +254,33 @@ const app = {
             app.isRepeat = !app.isRepeat   // when click chage boolean-value;
             repeat.classList.toggle('active', app.isRepeat);
         }
+
+
+        // EVENT KEYBOARD:
+        document.onkeyup = function(e){
+            //next >>
+            if(e.isComposing || e.keyCode === 39){
+                if (app.isRandom){
+                    app.randomSong();
+                    app.isPlaying?audio.play():audio.pause()
+                }else{
+                    app.nextCurrantSong();
+                    app.isPlaying?audio.play():audio.pause()
+                }
+            }
+            //prev <<
+            if(e.isComposing || e.keyCode === 37){
+                if (app.isRandom){
+                    app.randomSong();
+                    app.isPlaying?audio.play():audio.pause()
+                }else{
+                    app.prevCurrantSong();
+                    app.isPlaying?audio.play():audio.pause()
+                }
+            }
+
+            // space
+        }
     },
 
     //render list song
@@ -278,6 +317,7 @@ const app = {
         }   
         this.loadCurrentSong()
         this.activeSong()
+        this.scrollActiveSong()
     },
     prevCurrantSong: function (){
         this.currentIndex--
@@ -286,6 +326,7 @@ const app = {
         }   
         this.loadCurrentSong()
         this.activeSong()
+        this.scrollActiveSong()
     },
 
     //random song:
@@ -297,6 +338,7 @@ const app = {
         this.currentIndex = currentIndexRandom;
         this.loadCurrentSong()
         this.activeSong()
+        this.scrollActiveSong()
     },
 
     // active song:
@@ -307,6 +349,36 @@ const app = {
         }
         const activeSong = loopSongs[this.currentIndex]
         activeSong.classList.add('active')
+    },
+
+    //scroll active song:
+    scrollActiveSong: function(){   
+        const elementSongActive = $('.song.active');
+        if (this.currentIndex === 0 ) {
+            setTimeout(() =>{ 
+                elementSongActive.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'center',
+                })
+                document.documentElement.scrollTop = 0
+            },200)
+        };
+
+        if (this.currentIndex <= 3) {
+            setTimeout(() =>{ 
+                elementSongActive.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'nearest',
+                })
+                // document.documentElement.scrollTop = 0
+            },200)
+        };
+        setTimeout(() =>{ 
+            elementSongActive.scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'center',
+            })
+        })
     },
 
     start: function(){
@@ -323,4 +395,8 @@ window.onload = function() {
     setTimeout(() => {
         app.start()
     }, 1500);
+}
+
+document.onkeyup = function(e){
+        console.log([e])
 }

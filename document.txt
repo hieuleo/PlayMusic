@@ -8,7 +8,8 @@
         - Next/ Prev --> ok 
         - random --> ok
         - repeat --> ok
-        - active song --> 
+        - active song -->  ok
+		- scroll song active -->
 
 
 - thực hiện: 
@@ -134,6 +135,26 @@
 			- for lập để xóa active trong các ptử của loopSongs
 			- const activeSong = loopSongs[this.currentIndex]
 			- add : active cho activeSong
+	- Scroll SONG:
+		- LOGIT:
+			- next xong ==> delay 300ms ==> kéo phần tử lên view.
+			- áp dụng phương thức element: .scrollIntoView
+		- gọi đến scrollActiveSong() trong hàm next/prev/random.
+		- tạo hàm sử lý scrollActiveSong()
+		- gọi đến thẻ .song.active
+		- áp dụng scrollIntoView:
+			- sử dụng Object parameter của scroll intro view:
+				- từ element đó gọi đến .scrollIntoView()--> đưa về tầm nhìn ==> tuy nhiên ở các bài đầu có thể bị khuất do mặt định đưa về center.
+				- scrollIntoViewOptions:
+					- truyền vào 1 object:
+						- behavior: "smooth", block: "center", inline: "center" 
+						- behavior // chuyển động.
+						- block: vị trí chiều dọc của element.
+						- inline: vị trí chiều ngang của đối tượng.
+					- sử lý khi ở index đầu thì cdThumb bị lỗi k hiện ra:
+						- dùng if (this.currentIndex === 0) cho cdThumb scrollTop =0,
+					dùng setTimeout để chuyển động mượt hơn	
+
 
 			
 
