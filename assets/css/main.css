@@ -377,7 +377,7 @@ header h2 {
   width: 46px;
   border-radius: 50%;
   height: 46px;
-  background-color: #f2bcbcc9;
+  background-color: #f2bcbcfd;
   cursor: pointer;
   user-select: none;
 }
@@ -603,7 +603,7 @@ header h2 {
 }
 
 .player.dark #volume-input::-webkit-slider-thumb {
-  background-color: #7100a1a6;
+  background-color: #7100a1;
 }
 
 .player.dark .volume:active{
