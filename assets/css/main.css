@@ -295,6 +295,7 @@ header h2 {
   background-color: rgba(0, 0, 0, 0.4);
   border-radius: 50%;
   transition: all 0.1s linear;
+  opacity: 0;
 }
 
 .volume:active{

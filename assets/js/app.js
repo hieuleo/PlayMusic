@@ -494,6 +494,7 @@ window.onload = function() {
     cdThumbAnimation.pause()
     setTimeout(() => {
         app.start()
+        volumeBtn.style.opacity = '1'
     }, 1500);
 }
 
