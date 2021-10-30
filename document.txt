@@ -9,7 +9,8 @@
         - random --> ok
         - repeat --> ok
         - active song -->  ok
-		- scroll song active -->
+		- scroll song active --> ok	
+		- click seleter song list --> ok
 
 
 - thực hiện: 
@@ -156,7 +157,23 @@
 					dùng setTimeout để chuyển động mượt hơn	
 
 
-			
+	- CLICK SELETER SONG:
+		- Logit:
+			- có thể lắng nghe trên song theo id --> k thực tế.
+			- tạo data-index khi render :  	data-index="${index}";
+			- Sử dụng việc lick vào thẻ con hoặc chính thẻ playList:
+			- Sử dụng: 
+				- e.target ==> truy cập vào phần tử phát ra sự kiện thông qua đối tượng event.
+				- e.target.closest():
+					- trả về element chính nó hay thẻ cha của nó ==> k tìm thấy trả về null.
+					- e.target.closest(.song) ==> trả về nếu nó là con của song.
+					- e.target.closest(.song:not(.active))	==> nếu có class active thì loại ra.
+					- sử lý trong bài nếu nó là song khổng phải active và hoặt nó option thì cho vào sử lý
+						- NẾU song k phải active:
+							- thì currenIndex = nó.getattribute.('data-index') || nó.dataset.index.
+								- dataset cấp quyền truy cập bất cứ data-***..
+							- getattribute lấy thuộc tính của thẻ.
+		
 
 
 
@@ -164,7 +181,3 @@
 
 
 
-
-
-- thêm: 
-	

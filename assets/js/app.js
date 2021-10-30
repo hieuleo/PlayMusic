@@ -15,8 +15,10 @@ const prev = $('.btn-prev');
 const random = $('.btn-random');
 const repeat = $('.btn-repeat');
 const title = $('title');
-const themeTogether = $('.theme-toggler')
-const toggler =  $('.toggler')
+const themeTogether = $('.theme-toggler');
+const toggler =  $('.toggler');
+const iconTitle = $('.icon-title');
+const natification = $('.natification')
 
 // warning   
 if(body.clientWidth>720){
@@ -28,6 +30,7 @@ const cdThumbAnimation = cdThumb.animate([{transform: 'rotate(360deg)'}],
 {duration: 18000,            // spin 18s
     iterations: Infinity,   // loop vo hang
 });
+
 //list-song
 const app = {
     currentIndex: 0,
@@ -43,6 +46,12 @@ const app = {
             image: './assets/img/playList/avicii.jpg',
         },
         {
+            name: 'The Nights',
+            singer: 'Avicii',
+            path: 'https://nhacpro.me/stream/dnh.mp3',
+            image: './assets/img/playList/3.jpg',
+        },
+            {
             name: 'The Feels',
             singer: 'TWICE',
             path: 'https://nhacpro.me/stream/wk7c.mp3',
@@ -59,12 +68,6 @@ const app = {
             singer: 'Tăng Day Tân',
             path: 'https://tainhacmienphi.biz/get/song/api/325962',
             image: './assets/img/playList/2.jfif',
-        },
-        {
-            name: 'The Nights',
-            singer: 'Avicii',
-            path: 'https://nhacpro.me/stream/dnh.mp3',
-            image: './assets/img/playList/3.jpg',
         },
         {
             name: 'Counting Stars',
@@ -179,15 +182,16 @@ const app = {
             player.classList.add('playing')
             app.isPlaying = true;
             cdThumbAnimation.play()
-            title.textContent = `️PLAY 🎼️ : ${app.currentSong.name} 💝💝`;
-            
+            title.textContent = ` ⏸️ ${app.currentSong.name} 🎼️`;
+            iconTitle.href = "./assets/img/kisspng-computer-icons-itunes-portable-network-graphics-cl-web-store-5cdee593d8b936.5054044715581116358877.png";
             // cdThumb.classList.add('spin')
         }
         audio.onpause = function(){
-            title.textContent = 'PAUSE ▶️ : Music mobile'
+            title.textContent = ` ⏯️ ${app.currentSong.name}💝💝`;
             player.classList.remove('playing')
             app.isPlaying = false;
             cdThumbAnimation.pause()
+            iconTitle.href = "./assets/img/PikPng.com_itunes-logo-png_555177.png";
             // cdThumb.classList.remove('spin')
         }
 
@@ -278,16 +282,44 @@ const app = {
                     app.isPlaying?audio.play():audio.pause()
                 }
             }
+        }
 
-            // space
+        // Click seleter song:
+        playList.onclick = function(e){
+            const songSeleter = e.target.closest('.song:not(.active)');
+            const optionseleter = e.target.closest('.option');
+            if(songSeleter && !optionseleter){
+                // handle songSeleter:
+                if (songSeleter){
+                    app.currentIndex = Number(songSeleter.dataset.index);
+                    app.loadCurrentSong()
+                    app.activeSong()
+                    setTimeout(() => {
+                        audio.play()
+                    }, 300);
+                    // app.isPlaying?audio.play():audio.pause()
+                }
+
+                //option
+                
+            }
+            if(optionseleter){
+                natification.style.top = '5px';
+                natification.style.opacity = '1';
+                setTimeout(() => {
+                    natification.style.opacity = '0';
+                    natification.style.top = '-25px';
+                }, 3000);
+            }
         }
     },
+
 
     //render list song
     render: function(){
         const htmls = this.songs.map((song, index) =>{
             return `
-            <div class="song ${index === app.currentIndex ? "active" : ""}">
+            <div class="song ${index === app.currentIndex ? "active" : ""}" data-index="${index}">
                 <div class="thumb" style="background-image: url('${song.image}')"></div>
                 <div class="body">
                   <h3 class="title">${song.name}</h3>
@@ -378,7 +410,7 @@ const app = {
                 behavior: 'smooth', 
                 block: 'center',
             })
-        })
+        })        
     },
 
     start: function(){
