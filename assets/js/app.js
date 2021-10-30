@@ -18,7 +18,8 @@ const title = $('title');
 const themeTogether = $('.theme-toggler');
 const toggler =  $('.toggler');
 const iconTitle = $('.icon-title');
-const natification = $('.natification')
+const natification = $('.natification');
+const menu = $('.menu');
 
 // warning   
 if(body.clientWidth>720){
@@ -299,10 +300,9 @@ const app = {
                     }, 300);
                     // app.isPlaying?audio.play():audio.pause()
                 }
-
-                //option
-                
             }
+
+            //option
             if(optionseleter){
                 natification.style.top = '5px';
                 natification.style.opacity = '1';
@@ -311,6 +311,16 @@ const app = {
                     natification.style.top = '-25px';
                 }, 3000);
             }
+        }
+
+        //click menu:
+        menu.onclick = function(){
+            natification.style.top = '5px';
+                natification.style.opacity = '1';
+                setTimeout(() => {
+                    natification.style.opacity = '0';
+                    natification.style.top = '-25px';
+                }, 3000);
         }
     },
 
