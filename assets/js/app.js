@@ -34,7 +34,9 @@ const currentVolume = $('.currentvolume')
 audio.volume = 0.05;
 // style-volume-color:
 var volumeStyle = 10;
-volumeInputID.style.background = 'linear-gradient(to right, #7200a1de 0%, #7200a1de ' + volumeStyle + '%, #fff ' + volumeStyle + '%, white 100%)'
+
+//style-audio-color.
+var audioStyle = 0;
 
 // warning   
 if(body.clientWidth>720){
@@ -163,17 +165,11 @@ const app = {
         //theme-mode:
         themeTogether.onclick = function(){
             app.isThemeTogether = !app.isThemeTogether;
-            player.classList.toggle('dark', app.isThemeTogether)
-            body.classList.toggle('body-dack',app.isThemeTogether)
-            volumeInputID.classList.toggle('color',app.isThemeTogether)
-            if (app.isThemeTogether){
-                volumeStyle = (volumeInputID.value-volumeInputID.min)/(volumeInputID.max-volumeInputID.min)*100
-                volumeInputID.style.background = 'linear-gradient(to right, #7200a1de 0%, #7200a1de ' + volumeStyle + '%, #fff ' + volumeStyle + '%, white 100%)'
-            }
-            if(!app.isThemeTogether){
-                volumeStyle = (volumeInputID.value-volumeInputID.min)/(volumeInputID.max-volumeInputID.min)*100
-                volumeInputID.style.background = 'linear-gradient(to right, #f9c6c5 0%, #f9c6c5 ' + volumeStyle + '%, #fff ' + volumeStyle + '%, white 100%)'
-            }
+            player.classList.toggle('dark', app.isThemeTogether);
+            body.classList.toggle('body-dack',app.isThemeTogether);
+            volumeInputID.classList.toggle('color',app.isThemeTogether);
+            app.handleVolumeStyle();
+            app.handleAudioStyle();
         }
 
         // handle scroll.
@@ -225,12 +221,14 @@ const app = {
             if(audio.duration){
                 timeLine.value = ((audio.currentTime)) / ((audio.duration)) * 100;
             }
+            app.handleAudioStyle();
         }
         
         //seek song:
         timeLine.oninput = function(){
             const seekTime = ((timeLine.value) * ((audio.duration)))/100;
             audio.currentTime = seekTime;
+            app.handleAudioStyle();
         }
         
         //hand click next
@@ -386,15 +384,9 @@ const app = {
                 i.classList.remove('active');
                 volumeUp.classList.add('active')
             }
+
             //volume style:
-            if (app.isThemeTogether){
-                volumeStyle = (volumeInputID.value-volumeInputID.min)/(volumeInputID.max-volumeInputID.min)*100
-                volumeInputID.style.background = 'linear-gradient(to right, #7200a1de 0%, #7200a1de ' + volumeStyle + '%, #fff ' + volumeStyle + '%, white 100%)'
-            }
-            if(!app.isThemeTogether){
-                volumeStyle = (volumeInputID.value-volumeInputID.min)/(volumeInputID.max-volumeInputID.min)*100
-                volumeInputID.style.background = 'linear-gradient(to right, #f9c6c5 0%, #f9c6c5 ' + volumeStyle + '%, #fff ' + volumeStyle + '%, white 100%)'
-            }
+            app.handleVolumeStyle();
          }
 
         //click menu:
@@ -507,12 +499,41 @@ const app = {
         })        
     },
 
+    handleAudioStyle:function(){
+        if (app.isThemeTogether){
+            // audio style
+            audioStyle = (timeLine.value-timeLine.min)/(timeLine.max-timeLine.min)*100
+            timeLine.style.background = 'linear-gradient(to right, #7200a1de 0%, #7200a1de ' + audioStyle + '%, #fff ' + audioStyle + '%, white 100%)'
+        }
+        if(!app.isThemeTogether){
+            // audio style
+            audioStyle = (timeLine.value-timeLine.min)/(timeLine.max-timeLine.min)*100
+            timeLine.style.background = 'linear-gradient(to right, #f9c6c5 0%, #f9c6c5 ' + audioStyle + '%, #fff ' + audioStyle + '%, white 100%)'
+        }
+    },
+
+    handleVolumeStyle: function(){
+        //volume style:
+        if (app.isThemeTogether){
+            //volume style
+            volumeStyle = (volumeInputID.value-volumeInputID.min)/(volumeInputID.max-volumeInputID.min)*100
+            volumeInputID.style.background = 'linear-gradient(to right, #7200a1de 0%, #7200a1de ' + volumeStyle + '%, #fff ' + volumeStyle + '%, white 100%)'
+        }
+        if(!app.isThemeTogether){
+            //volume style
+            volumeStyle = (volumeInputID.value-volumeInputID.min)/(volumeInputID.max-volumeInputID.min)*100
+            volumeInputID.style.background = 'linear-gradient(to right, #f9c6c5 0%, #f9c6c5 ' + volumeStyle + '%, #fff ' + volumeStyle + '%, white 100%)'
+        }
+    },
+
     start: function(){
         // this.getCurrentSong()
         this.defineProperties();
         this.render();
         this.handleEvens();
         this.loadCurrentSong();
+        this.handleAudioStyle();
+        this.handleVolumeStyle();
     },
 };
 

@@ -581,6 +581,9 @@ header h2 {
   transition: all 0.1s linear;
   opacity: 0;
 }
+.player.dark .progress{
+  border: 1px solid #7f09776c;
+}
 
 .player.dark .progress::-webkit-slider-thumb {
   background-color: #b06bcc;
