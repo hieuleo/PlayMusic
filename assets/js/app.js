@@ -91,7 +91,7 @@ const app = {
         {
             name: 'Counting Stars',
             singer: 'OneRepublic',
-            path: 'https://nhacpro.me/stream/w1vd.mp3',
+            path: 'https://tainhac123.com/listen/counting-stars-onerepublic.YbKoIdmnuSFy.html',
             image: './assets/img/playList/4.jpg',
         },
         {
@@ -147,6 +147,60 @@ const app = {
             singer: 'aespa',
             path: 'https://nhacpro.me/stream/wkb3.mp3',
             image: './assets/img/playList/aespa.jpeg',
+        },
+        {
+            name: 'Từ thích thích đến thương thương',
+            singer: 'AMEE',
+            path: 'https://tainhac123.com/listen/tu-thich-thich-thanh-thuong-thuong-amee-ft-hoang-dung.9FctgvjTB77D.html',
+            image: './assets/img/playList/amee2.png',
+        },
+        {
+            name: 'Sao Anh Chưa Về Nhà',
+            singer: 'AMEE',
+            path: 'https://skymp3.net/listen/sao-anh-chua-ve-nha~amee-ricky-star~tsvwmc3bq98vwq',
+            image: './assets/img/playList/Amee3.jpg',
+        },
+        {
+            name: 'MAMA Boy ',
+            singer: 'AMEE',
+            path: 'https://tainhac123.com/listen/mama-boy-amee.HLZHKlOcsS4c.html',
+            image: './assets/img/playList/amee4.png',
+        },
+        {
+            name: 'Đen Đá Không Đường ',
+            singer: 'AMEE',
+            path: 'https://tainhac123.com/listen/den-da-khong-duong-rap-version-amee-ft-d-mex.9VjRoZ3fDYsV.html',
+            image: './assets/img/playList/amee5.jpg',
+        },
+        {
+            name: 'Ex\'s Hate Me',
+            singer: 'B Ray,Masew,AMee',
+            path: 'https://tainhac123.com/listen/exs-hate-me-b-ray-ft-masew-ft-amee.EEQuiAXZ6Dos.html',
+            image: './assets/img/playList/amee6.jpg',
+        },
+        {
+            name: 'Muộn Rồi Mà Sao Còn ',
+            singer: 'Sơn Tùng M-TP',
+            path: 'https://nhacpro.me/stream/whui.mp3',
+            image: './assets/img/playList/son.jfif',
+        },
+        {
+            name: 'Gene ',
+            singer: 'GeneBinz,Touliver',
+            path: 'https://tainhac123.com/listen/gene-binz-ft-touliver.uHVH2dQwWak6.html',
+            image: './assets/img/playList/binz.jpg',
+        },
+        {
+            name: 'Răng Khôn ',
+            singer: 'Phí Phương Anh,RIN9',
+            path: 'https://tainhac123.com/listen/rang-khon-phi-phuong-anh-ft-rin9.DS5NwsGBlUhU.html',
+            image: './assets/img/playList/phiphuonganh.jpg',
+        },
+        {
+            name: 'Waiting For Love ',
+            singer: 'Avicii',
+            path: 'https://tainhac123.com/listen/waiting-for-love-avicii.CTCrPh2Yblky.html',
+            image: './assets/img/playList/avicii5.jpg',
         },
     ],
     
