@@ -32,6 +32,10 @@ const currentVolume = $('.currentvolume')
 
 //const audio valume 
 audio.volume = 0.05;
+// style-volume-color:
+var volumeStyle = 10;
+volumeInputID.style.background = 'linear-gradient(to right, #7200a1de 0%, #7200a1de ' + volumeStyle + '%, #fff ' + volumeStyle + '%, white 100%)'
+
 // warning   
 if(body.clientWidth>720){
     alert(' HIEULeo: NoTiFy⛔⛔ This is Version 2.0 for mobile!!!')
@@ -161,6 +165,15 @@ const app = {
             app.isThemeTogether = !app.isThemeTogether;
             player.classList.toggle('dark', app.isThemeTogether)
             body.classList.toggle('body-dack',app.isThemeTogether)
+            volumeInputID.classList.toggle('color',app.isThemeTogether)
+            if (app.isThemeTogether){
+                volumeStyle = (volumeInputID.value-volumeInputID.min)/(volumeInputID.max-volumeInputID.min)*100
+                volumeInputID.style.background = 'linear-gradient(to right, #7200a1de 0%, #7200a1de ' + volumeStyle + '%, #fff ' + volumeStyle + '%, white 100%)'
+            }
+            if(!app.isThemeTogether){
+                volumeStyle = (volumeInputID.value-volumeInputID.min)/(volumeInputID.max-volumeInputID.min)*100
+                volumeInputID.style.background = 'linear-gradient(to right, #f9c6c5 0%, #f9c6c5 ' + volumeStyle + '%, #fff ' + volumeStyle + '%, white 100%)'
+            }
         }
 
         // handle scroll.
@@ -178,7 +191,6 @@ const app = {
             }
             cd.style.width = cdNewWidth > 0 ? cdNewWidth +'px': 0;
             cd.style.opacity = cdNewWidth/cdWidth;
-            // console.log([cd.style])
         };
 
         // handle click play
@@ -343,10 +355,9 @@ const app = {
             const clickDocumentVolumentplayer = e.target.closest('.player');
             const clickDocumentVolumentInpur = e.target.closest('.volume-input');
             const clickDocumentVolument = e.target.closest('.volume');
-            console.log(e)
             if (clickDocumentVolumentplayer && !clickDocumentVolumentInpur && !clickDocumentVolument){
                 app.isVolumeInput = !app.isVolumeInput;
-                volumeInput.classList.remove('active', app.isVolumeInput)
+                volumeInput.classList.remove('active', !app.isVolumeInput)
             }
         }
 
@@ -375,7 +386,16 @@ const app = {
                 i.classList.remove('active');
                 volumeUp.classList.add('active')
             }
-        }
+            //volume style:
+            if (app.isThemeTogether){
+                volumeStyle = (volumeInputID.value-volumeInputID.min)/(volumeInputID.max-volumeInputID.min)*100
+                volumeInputID.style.background = 'linear-gradient(to right, #7200a1de 0%, #7200a1de ' + volumeStyle + '%, #fff ' + volumeStyle + '%, white 100%)'
+            }
+            if(!app.isThemeTogether){
+                volumeStyle = (volumeInputID.value-volumeInputID.min)/(volumeInputID.max-volumeInputID.min)*100
+                volumeInputID.style.background = 'linear-gradient(to right, #f9c6c5 0%, #f9c6c5 ' + volumeStyle + '%, #fff ' + volumeStyle + '%, white 100%)'
+            }
+         }
 
         //click menu:
         menu.onclick = function(){
@@ -504,9 +524,9 @@ window.onload = function() {
     }, 1500);
 }
 
-document.onkeyup = function(e){
-        console.log([e])
-}
+// document.onkeyup = function(e){
+//         console.log([e])
+// }
 
 function disableScrolling(){
     var x=window.scrollX;
