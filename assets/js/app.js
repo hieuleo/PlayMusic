@@ -28,10 +28,14 @@ const volumeMute = $('.volume-mute');
 const volumeOff = $('.volume-off');
 const volumeDown = $('.volume-down');
 const volumeUp = $('.volume-up');
-const currentVolume = $('.currentvolume')
+const currentVolume = $('.currentvolume');
+
+// constants:
+const KEY_LOCATION = 'SAVE_SETTING_LOCAL';
 
 //const audio valume 
 audio.volume = 0.05;
+
 // style-volume-color:
 var volumeStyle = 10;
 
@@ -57,6 +61,7 @@ const app = {
     isRepeat: false,
     isThemeTogether: true,
     isVolumeInput: false,
+    
     songs : [
         {
             name: 'You Be Love',
@@ -219,6 +224,7 @@ const app = {
         //theme-mode:
         themeTogether.onclick = function(){
             app.isThemeTogether = !app.isThemeTogether;
+            app.setConfig('isThemeTogether', app.isThemeTogether);
             player.classList.toggle('dark', app.isThemeTogether);
             body.classList.toggle('body-dack',app.isThemeTogether);
             volumeInputID.classList.toggle('color',app.isThemeTogether);
@@ -227,7 +233,6 @@ const app = {
         }
 
         // handle scroll.
-        // const cd = $('.cd');
         cdThumbAnimation.pause()
         const cdWidth = cd.offsetWidth;
         document.onscroll = function(){
@@ -259,7 +264,6 @@ const app = {
             cdThumbAnimation.play()
             title.textContent = ` ⏸️ ${app.currentSong.name} 🎼️`;
             iconTitle.href = "./assets/img/kisspng-computer-icons-itunes-portable-network-graphics-cl-web-store-5cdee593d8b936.5054044715581116358877.png";
-            // cdThumb.classList.add('spin')
         }
         audio.onpause = function(){
             title.textContent = ` ⏯️ ${app.currentSong.name}💝💝`;
@@ -267,7 +271,6 @@ const app = {
             app.isPlaying = false;
             cdThumbAnimation.pause()
             iconTitle.href = "./assets/img/PikPng.com_itunes-logo-png_555177.png";
-            // cdThumb.classList.remove('spin')
         }
 
             // time-line:
@@ -328,17 +331,20 @@ const app = {
         random.onclick = function(){
             app.isRandom = !app.isRandom   // when click chage boolean-value;
             random.classList.toggle('active', app.isRandom);
+            app.setConfig('isRandom', app.isRandom);
         };
 
         //repeat:
         repeat.onclick = function(){
             app.isRepeat = !app.isRepeat   // when click chage boolean-value;
             repeat.classList.toggle('active', app.isRepeat);
+            app.setConfig('isRepeat', app.isRepeat);
         }
 
 
         // EVENT KEYBOARD:
         document.onkeyup = function(e){
+
             //next >>
             if(e.isComposing || e.keyCode === 39){
                 if (app.isRandom){
@@ -349,6 +355,7 @@ const app = {
                     app.isPlaying?audio.play():audio.pause()
                 }
             }
+            
             //prev <<
             if(e.isComposing || e.keyCode === 37){
                 if (app.isRandom){
@@ -374,36 +381,23 @@ const app = {
                     setTimeout(() => {
                         audio.play()
                     }, 300);
-                    // app.isPlaying?audio.play():audio.pause()
                 }
             }
 
             //option
             if(optionseleter){
-                natification.style.top = '5px';
-                natification.style.opacity = '1';
-                setTimeout(() => {
-                    natification.style.opacity = '0';
-                    natification.style.top = '-25px';
-                }, 3000);
+                app.natificationError();
             }
         }
-
-
 
         //volume sounds:
         volumeBtn.onclick = function(){
             app.isVolumeInput = !app.isVolumeInput;
-            // if(app.isVolumeInput){
-            //     disableScrolling()
-            // }else{
-            //     enableScrolling()
-            // }
             volumeInput.classList.toggle('active', app.isVolumeInput)
         }
-            // close when click document
+
+        // close when click document
         player.onclick =function(e){
-            // const songSeleter = e.target.closest('.song:not(.active)');
             const clickDocumentVolumentplayer = e.target.closest('.player');
             const clickDocumentVolumentInpur = e.target.closest('.volume-input');
             const clickDocumentVolument = e.target.closest('.volume');
@@ -413,7 +407,7 @@ const app = {
             }
         }
 
-            // link value vs volume:
+        // link value vs volume:
         volumeInputID.oninput = function(){
             // disableScrolling()
             const changeValume = volumeInputID.value/100;
@@ -438,22 +432,16 @@ const app = {
                 i.classList.remove('active');
                 volumeUp.classList.add('active')
             }
-
-            //volume style:
+            
+            // call style:
             app.handleVolumeStyle();
          }
 
         //click menu:
         menu.onclick = function(){
-            natification.style.top = '5px';
-                natification.style.opacity = '1';
-                setTimeout(() => {
-                    natification.style.opacity = '0';
-                    natification.style.top = '-25px';
-                }, 3000);
+            app.natificationError();
         }
     },
-
 
     //render list song
     render: function(){
@@ -478,7 +466,6 @@ const app = {
         heading.textContent = this.currentSong.name;
         cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`;
         audio.src = this.currentSong.path;
-        // title.textContent = this.currentSong.name;
     },
 
     // Next/ Prev:
@@ -553,35 +540,69 @@ const app = {
         })        
     },
 
-    handleAudioStyle:function(){
+    //natification Error:
+    natificationError: function(){
+        natification.style.top = '5px';
+        natification.style.opacity = '1';
+        setTimeout(() => {
+            natification.style.opacity = '0';
+            natification.style.top = '-25px';
+        }, 3000);
+    },
+
+    // audio style
+    handleAudioStyle: function(){
         if (app.isThemeTogether){
-            // audio style
             audioStyle = (timeLine.value-timeLine.min)/(timeLine.max-timeLine.min)*100
             timeLine.style.background = 'linear-gradient(to right, #7200a1de 0%, #7200a1de ' + audioStyle + '%, #fff ' + audioStyle + '%, white 100%)'
         }
         if(!app.isThemeTogether){
-            // audio style
             audioStyle = (timeLine.value-timeLine.min)/(timeLine.max-timeLine.min)*100
             timeLine.style.background = 'linear-gradient(to right, #f9c6c5 0%, #f9c6c5 ' + audioStyle + '%, #fff ' + audioStyle + '%, white 100%)'
         }
     },
 
+    //volume style:
     handleVolumeStyle: function(){
-        //volume style:
         if (app.isThemeTogether){
-            //volume style
             volumeStyle = (volumeInputID.value-volumeInputID.min)/(volumeInputID.max-volumeInputID.min)*100
             volumeInputID.style.background = 'linear-gradient(to right, #7200a1de 0%, #7200a1de ' + volumeStyle + '%, #fff ' + volumeStyle + '%, white 100%)'
         }
         if(!app.isThemeTogether){
-            //volume style
             volumeStyle = (volumeInputID.value-volumeInputID.min)/(volumeInputID.max-volumeInputID.min)*100
             volumeInputID.style.background = 'linear-gradient(to right, #f9c6c5 0%, #f9c6c5 ' + volumeStyle + '%, #fff ' + volumeStyle + '%, white 100%)'
         }
     },
 
+
+    // handle localStorage:
+    // config
+    config: JSON.parse(localStorage.getItem('KEY_LOCATION')) || {},
+
+        //setConfig
+    setConfig: function(key, value) {   
+        this.config[key] = value;
+        localStorage.setItem('KEY_LOCATION', JSON.stringify(this.config));
+    },
+        // load config:
+    loadLocalConfig: function() {
+        this.isThemeTogether = this.config.isThemeTogether;
+        this.isRandom = this.config.isRandom;
+        this.isRepeat = this.config.isRepeat;
+    },
+        // render views config localStorage:
+    renderLocalStorage: function() {
+        player.classList.toggle('dark', app.isThemeTogether);
+        body.classList.toggle('body-dack',app.isThemeTogether);
+        volumeInputID.classList.toggle('color',app.isThemeTogether);
+        random.classList.toggle('active', app.isRandom);
+        repeat.classList.toggle('active', app.isRepeat);
+    },
+
     start: function(){
         // this.getCurrentSong()
+        this.loadLocalConfig();
+        this.renderLocalStorage();
         this.defineProperties();
         this.render();
         this.handleEvens();
@@ -599,16 +620,23 @@ window.onload = function() {
     }, 1500);
 }
 
+
+
+//checks key:
 // document.onkeyup = function(e){
 //         console.log([e])
 // }
 
-function disableScrolling(){
-    var x=window.scrollX;
-    var y=window.scrollY;
-    window.onscroll=function(){window.scrollTo(x, y);};
-}
 
-function enableScrolling(){
-    window.onscroll=function(){};
-}
+// disableScrolling:
+// function disableScrolling(){
+//     var x=window.scrollX;
+//     var y=window.scrollY;
+//     window.onscroll=function(){window.scrollTo(x, y);};
+// }
+
+
+//enableScrolling: 
+// function enableScrolling(){
+//     window.onscroll=function(){};
+// }

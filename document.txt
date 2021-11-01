@@ -11,6 +11,7 @@
         - active song -->  ok
 		- scroll song active --> ok	
 		- click seleter song list --> ok
+		- saved option --> ok
 
 
 - thực hiện: 
@@ -171,11 +172,41 @@
 					- sử lý trong bài nếu nó là song khổng phải active và hoặt nó option thì cho vào sử lý
 						- NẾU song k phải active:
 							- thì currenIndex = nó.getattribute.('data-index') || nó.dataset.index.
-								- dataset cấp quyền truy cập bất cứ data-***..
+								- dataset.index cấp quyền truy cập bất cứ data-***..
 							- getattribute lấy thuộc tính của thẻ.
-		
+	- saved option : lưu lại các lựa chọn như repeat hay random khi load lại trang.
+		- Logit: Tạo ra setting phai tính trước vì có thể có nhiều setting.
+			- Khai báo một key constants : Tức một giá trị không đổi - là một key - viết hoa : với giá trị bất kỳ.
+			- tạo một setting trong app: với 2 options
+				- dùng localstorage.getItem ==> truyền key vào kho dữ liệu
+				- và dùng: || {} để mặt định nó là một object khi người dùng mới tải app.
+			- config = JSON.pause //để conver to js (localstorage.getItem(tên key constent đã tạo))
+				- trong đó localstorage là kho thông tin lưu trữ trong trình duyệt của người dùng (Không lưu trên server)
+				- getItem : lấy ra item.
+				- localstorage lưu dưới dạng một json.
+			- tạo hàm lưu vào:
+				- hàm setconfig:
+					- có đối số : key và value.
+					- call đến: this.config[key] = value. ==> để tạo key và value vào object.
+					- localstorage.setItem(hàm key,  JSON.stringify(this.config)) 
+						==> JSON.stringify để lưu vào bằng object vì localstorage chỉ lưu dữ liệu dạng chuỗi
+			- handle event click:
+				- app.setconfig('isRandom', this.setconfig)
+			- khi f5 thì dữ liệu đã lưu vào localstorage  nhưng chưa log ra.
+				==> viết hàm load ra data này.
+			- function loadLocalConfig:
+				- this.isRandom = this.config.isRandom
+				......
 
+				hoăc: 
+				- Object.assign(this, this.config) ==> assign để hợp nhất this.config vào This
+				- đã load được config nhưng chưa render ra view màng hình
+				===> tạo hàm render ra:
+					- với việc toggle  lại các class ở các đối tượn cần localstorage.
+			- gọi đến hàm loadlocalconfig khi f5:
+				- gọi ở start.
 
+	- đọc thêm về localstorage: https://wiki.tino.org/localstorage-la-gi/
 
 
 
