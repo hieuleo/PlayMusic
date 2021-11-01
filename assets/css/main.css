@@ -58,6 +58,7 @@ html {
   background-image: url('../img/light-mode.jpg');
   background-size: cover;
   transition: all 0.2s linear;
+  /* background-position: center; */
 }
 
 /* HEADER */
@@ -340,6 +341,13 @@ header h2 {
   user-select: none;
   display: none;
   animation: volumeAnimation linear 0.5s;
+}
+
+.bug-mobi{
+  background-image: url('../img/light-mode.jpg');
+  /* width: 10px;
+  height: 10px; */
+  z-index: -10;
 }
 
 @keyframes volumeAnimation {
