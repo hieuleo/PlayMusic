@@ -78,7 +78,7 @@ const app = {
             {
             name: 'The Feels',
             singer: 'TWICE',
-            path: 'https://nhacpro.me/stream/wk7c.mp3',
+            path: 'https://doc-00-04-docs.googleusercontent.com/docs/securesc/rl22dfhpsvv48igrvc27cm4vmjq52acj/lobrjoqa5tojle9b39d6s2ca62kle08r/1635788925000/17678252831643853399/17678252831643853399/1d6n67hYnNbNo-WFLMN41ieAS85DSR8wx?e=download&authuser=0',
             image: './assets/img/playList/TheFeels-TWICE.jpg',
         },
         {
@@ -323,7 +323,7 @@ const app = {
                 setTimeout(() => {
                     app.nextCurrantSong();
                     audio.play();
-                }, 500);
+                }, 100);
             }
         }
 
